@@ -202,6 +202,14 @@ class Currency
     }
 
     /**
+     * @param float $rate
+     */
+    public function updateRate(float $rate)
+    {
+        $this->rate = $rate;
+    }
+
+    /**
      * @return string
      */
     public function __toString()
