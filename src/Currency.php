@@ -12,7 +12,9 @@ use Rixafy\DoctrineTraits\UniqueTrait;
 /**
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
- * @ORM\Table(name="currency")
+ * @ORM\Table(name="currency", indexes={
+ *     @ORM\Index(name="search_default", columns={"rate"})
+ * })
  */
 class Currency
 {
@@ -27,6 +29,8 @@ class Currency
     private $code;
 
     /**
+     * If you want to set your default currency, set rate to 1
+     *
      * @ORM\Column(type="float")
      * @var float
      */
