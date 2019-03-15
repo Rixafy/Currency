@@ -1,0 +1,16 @@
+{
+    "name": "rixafy/currency",
+    "description": "Currency CRUD with basic functions (listing, converting, updating, etc)",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rixafy",
+            "email": "rixafy@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "doctrine/orm": "2.7.x-dev"
+    }
+}
