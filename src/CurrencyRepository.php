@@ -48,6 +48,23 @@ class CurrencyRepository
     }
 
     /**
+     * @return Currency|object
+     * @throws CurrencyNotFoundException
+     */
+    public function getDefault(): Currency
+    {
+        $currency = $this->getRepository()->findOneBy([
+            'rate' => 1
+        ]);
+
+        if ($currency === null) {
+            throw new CurrencyNotFoundException('Currency with rate "1" not found (should be default currency).');
+        }
+
+        return $currency;
+    }
+
+    /**
      * @param string $id
      * @return Currency
      * @throws CurrencyNotFoundException
