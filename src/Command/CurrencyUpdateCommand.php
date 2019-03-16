@@ -7,6 +7,7 @@ namespace Rixafy\Currency\Command;
 use Doctrine\ORM\EntityManagerInterface;
 use Nette\Utils\Json;
 use Nette\Utils\JsonException;
+use Rixafy\Currency\CurrencyConfig;
 use Rixafy\Currency\CurrencyData;
 use Rixafy\Currency\CurrencyFacade;
 use Rixafy\Currency\CurrencyFactory;
@@ -17,6 +18,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class CurrencyUpdateCommand extends Command
 {
+    /** @var CurrencyConfig */
+    public $currencyConfig;
+
     /** @var CurrencyFacade */
     public $currencyFacade;
 
@@ -28,12 +32,14 @@ final class CurrencyUpdateCommand extends Command
 
     /**
      * CurrencyUpdateCommand constructor.
+     * @param CurrencyConfig $currencyConfig
      * @param CurrencyFacade $currencyFacade
      * @param CurrencyFactory $currencyFactory
      * @param EntityManagerInterface $entityManager
      */
-    public function __construct(CurrencyFacade $currencyFacade, CurrencyFactory $currencyFactory, EntityManagerInterface $entityManager)
+    public function __construct(CurrencyConfig $currencyConfig, CurrencyFacade $currencyFacade, CurrencyFactory $currencyFactory, EntityManagerInterface $entityManager)
     {
+        $this->currencyConfig = $currencyConfig;
         $this->currencyFacade = $currencyFacade;
         $this->currencyFactory = $currencyFactory;
         $this->entityManager = $entityManager;
@@ -48,10 +54,8 @@ final class CurrencyUpdateCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output): void
     {
-        $base = null;
-
-        $content = @file_get_contents('http://data.fixer.io/api/latest?access_key='); //todo: load key from config
-        if ($content !== null) {
+        $content = @file_get_contents('http://data.fixer.io/api/latest?access_key=' . $this->currencyConfig->getFixerIoApiKey() . '&base=' . $this->currencyConfig->getBaseCurrency());
+        if ($content !== false) {
             try {
                 $json = Json::decode($content);
 
@@ -95,11 +99,11 @@ final class CurrencyUpdateCommand extends Command
                     $output->writeln('<fg=green;options=bold></>');
 
                 } else {
-                    $output->writeln('<fg=red;options=bold>Read from fixer.io failed (json field success is negative)!</>');
+                    $output->writeln('<fg=red;options=bold>Read from fixer.io failed (json field success is negative), check your api key!</>');
                 }
 
             } catch (JsonException $e) {
-                $output->writeln('<fg=red;options=bold>Read from fixer.io failed (JsonException "' . $e->getMessage() . '")!</>');
+                $output->writeln('<fg=red;options=bold>Read from fixer.io failed (JsonException "' . $e->getMessage() . '"), check your api key!</>');
             }
         }
     }
