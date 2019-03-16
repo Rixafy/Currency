@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Rixafy\Currency;
 
-use App\Entity\Currency;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;

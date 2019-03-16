@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace Rixafy\Currency;
 
 use Doctrine\ORM\Mapping as ORM;
 use Rixafy\DoctrineTraits\ActiveTrait;
