@@ -79,6 +79,7 @@ class Currency
     public function __construct(CurrencyData $currencyData)
     {
         $this->code = $currencyData->code;
+        $this->edit($currencyData);
     }
 
     /**
