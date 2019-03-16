@@ -89,6 +89,16 @@ class CurrencyFacade
     }
 
     /**
+     * @param string $code
+     * @return Currency
+     * @throws Exception\CurrencyNotFoundException
+     */
+    public function getByCode(string $code): Currency
+    {
+        return $this->currencyRepository->getByCode($code);
+    }
+
+    /**
      * @return Currency
      * @throws Exception\CurrencyNotFoundException
      */

@@ -13,6 +13,7 @@
     "require": {
         "doctrine/orm": "2.7.x-dev",
         "ramsey/uuid-doctrine": "dev-master",
-        "rixafy/doctrine-traits": "dev-master"
+        "rixafy/doctrine-traits": "dev-master",
+        "nette/utils": "^3.0@dev"
     }
 }
