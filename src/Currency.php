@@ -85,7 +85,7 @@ class Currency
     /**
      * @param CurrencyData $currencyData
      */
-    public function edit(CurrencyData $currencyData)
+    public function edit(CurrencyData $currencyData): void
     {
         $this->code = $currencyData->code;
         $this->rate = $currencyData->rate;
@@ -119,7 +119,7 @@ class Currency
     /**
      * @return string
      */
-    public function getCode()
+    public function getCode(): string
     {
         return $this->code;
     }
@@ -127,7 +127,7 @@ class Currency
     /**
      * @return float
      */
-    public function getRate()
+    public function getRate(): float
     {
         return $this->rate;
     }
@@ -209,7 +209,7 @@ class Currency
     /**
      * @param float $rate
      */
-    public function updateRate(float $rate)
+    public function updateRate(float $rate): void
     {
         $this->rate = $rate;
     }
@@ -217,7 +217,7 @@ class Currency
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getCode();
     }
