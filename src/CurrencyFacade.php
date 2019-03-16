@@ -87,4 +87,12 @@ class CurrencyFacade
 
         $this->entityManager->flush();
     }
+
+    /**
+     * @return Currency[]
+     */
+    public function getAll(): array
+    {
+        return $this->currencyRepository->getQueryBuilderForAll()->getQuery()->getArrayResult();
+    }
 }
