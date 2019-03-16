@@ -89,9 +89,18 @@ class CurrencyFacade
     }
 
     /**
+     * @return Currency
+     * @throws Exception\CurrencyNotFoundException
+     */
+    public function getDefaultCurrency(): Currency
+    {
+        return $this->currencyRepository->getDefault();
+    }
+
+    /**
      * @return Currency[]
      */
-    public function getAll(): array
+    public function getAllCurrencies(): array
     {
         return $this->currencyRepository->getQueryBuilderForAll()->getQuery()->getArrayResult();
     }
