@@ -15,5 +15,15 @@
         "ramsey/uuid-doctrine": "dev-master",
         "rixafy/doctrine-traits": "dev-master",
         "nette/utils": "^3.0@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Rixafy\\Currency\\": "src"
+        }
+    },
+    "config": {
+        "platform": {
+            "php": "7.1"
+        }
     }
 }
