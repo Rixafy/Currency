@@ -174,25 +174,19 @@ class Currency
 
     /**
      * @param float $amount
-     * @param Currency|null $fromCurrency
      * @return string
      */
-    public function formatToString(float $amount, ?Currency $fromCurrency = null): string
+    public function formatToString(float $amount): string
     {
-        return $this->symbol_before.$this->formatToNumber($amount, $fromCurrency).$this->symbol_after;
+        return $this->symbol_before . $this->formatToNumber($amount) . $this->symbol_after;
     }
 
     /**
      * @param float $amount
-     * @param Currency|null $fromCurrency
      * @return string
      */
-    public function formatToNumber(float $amount, ?Currency $fromCurrency = null): string
+    public function formatToNumber(float $amount): string
     {
-        if ($fromCurrency !== null) {
-            return number_format((float) $this->convert($amount, $fromCurrency), $this->decimal_places, $this->decimal_separator, $this->thousands_separator);
-        }
-
         return number_format((float) $amount, $this->decimal_places, $this->decimal_separator, $this->thousands_separator);
     }
 
@@ -201,9 +195,19 @@ class Currency
      * @param Currency $fromCurrency
      * @return float
      */
-    public function convert(float $amount, Currency $fromCurrency): float
+    public function convertFrom(Currency $fromCurrency, float $amount): float
     {
         return round($amount * ($this->getRate() / $fromCurrency->getRate()), $this->decimal_places, $this->round_down ? PHP_ROUND_HALF_DOWN : PHP_ROUND_HALF_UP);
+    }
+
+    /**
+     * @param Currency $toCurrency
+     * @param float $amount
+     * @return float
+     */
+    public function convertTo(Currency $toCurrency, float $amount): float
+    {
+        return $toCurrency->convertFrom($this, $amount);
     }
 
     /**
