@@ -7,11 +7,18 @@ namespace Rixafy\Currency;
 class CurrencyConfig
 {
     /**
-     * Api key from fixer.io.
+     * Api key from third-party api.
      *
      * @var string
      */
-    private $fixerIoApiKey;
+    private $apiKey;
+
+    /**
+     * Api service for fetching currencies.
+     *
+     * @var string
+     */
+    private $apiService;
 
     /**
      * Base currency, rate for this currency will be always 1, rates for other currencies will be relative to this.
@@ -22,21 +29,23 @@ class CurrencyConfig
 
     /**
      * CurrencyConfig constructor.
-     * @param $fixerIoApiKey
+     * @param $apiKey
+     * @param string $apiService
      * @param string $baseCurrency
      */
-    public function __construct($fixerIoApiKey, $baseCurrency = 'USD')
+    public function __construct($apiKey, $apiService = 'fixer', $baseCurrency = 'USD')
     {
-        $this->fixerIoApiKey = $fixerIoApiKey;
+        $this->apiKey = $apiKey;
+        $this->apiService = $apiService;
         $this->baseCurrency = $baseCurrency;
     }
 
     /**
      * @return string
      */
-    public function getFixerIoApiKey(): string
+    public function getApiKey(): string
     {
-        return $this->fixerIoApiKey;
+        return $this->apiKey;
     }
 
     /**
@@ -45,5 +54,37 @@ class CurrencyConfig
     public function getBaseCurrency(): string
     {
         return $this->baseCurrency;
+    }
+
+    /**
+     * @return string
+     */
+    public function getApiService(): string
+    {
+        return $this->apiService;
+    }
+
+    /**
+     * @param string $apiKey
+     */
+    public function setApiKey(string $apiKey): void
+    {
+        $this->apiKey = $apiKey;
+    }
+
+    /**
+     * @param string $apiService
+     */
+    public function setApiService(string $apiService): void
+    {
+        $this->apiService = $apiService;
+    }
+
+    /**
+     * @param string $baseCurrency
+     */
+    public function setBaseCurrency(string $baseCurrency): void
+    {
+        $this->baseCurrency = $baseCurrency;
     }
 }

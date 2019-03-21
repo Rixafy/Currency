@@ -54,7 +54,7 @@ final class CurrencyUpdateCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output): void
     {
-        $content = @file_get_contents('http://data.fixer.io/api/latest?access_key=' . $this->currencyConfig->getFixerIoApiKey() . '&base=' . $this->currencyConfig->getBaseCurrency());
+        $content = @file_get_contents('http://data.fixer.io/api/latest?access_key=' . $this->currencyConfig->getApiKey() . '&base=' . $this->currencyConfig->getBaseCurrency());
         if ($content !== false) {
             try {
                 $json = Json::decode($content);
