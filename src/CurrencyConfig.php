@@ -33,7 +33,7 @@ class CurrencyConfig
      * @param string $apiService
      * @param string $baseCurrency
      */
-    public function __construct($apiKey, $apiService = 'fixer', $baseCurrency = 'USD')
+    public function __construct($apiKey = 'undefined', $apiService = 'fixer', $baseCurrency = 'USD')
     {
         $this->apiKey = $apiKey;
         $this->apiService = $apiService;
