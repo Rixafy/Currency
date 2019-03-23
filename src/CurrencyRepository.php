@@ -70,7 +70,10 @@ class CurrencyRepository
      */
     public function get(string $id): Currency
     {
-        $currency = $this->find($id);
+        /** @var Currency $currency */
+        $currency = $this->getRepository()->findOneBy([
+            'id' => $id
+        ]);
 
         if ($currency === null) {
             throw new CurrencyNotFoundException('Currency with id ' . $id . ' not found.');
