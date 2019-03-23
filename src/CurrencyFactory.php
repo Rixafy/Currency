@@ -6,8 +6,8 @@ namespace Rixafy\Currency;
 
 class CurrencyFactory
 {
-    public function create(CurrencyData $imageData): Currency
+    public function create(CurrencyData $currencyData): Currency
     {
-        return new Currency($imageData);
+        return new Currency($currencyData);
     }
 }
