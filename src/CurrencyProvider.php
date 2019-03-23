@@ -39,7 +39,7 @@ class CurrencyProvider
      * @param string $code
      * @throws Exception\CurrencyNotFoundException
      */
-    public function setCurrency(string $code): void
+    public function provide(string $code): void
     {
         $this->currency = $this->currencyFacade->getByCode($code);
     }
