@@ -91,4 +91,10 @@ class CurrencyRepository
     {
         return $this->getRepository()->createQueryBuilder('c');
     }
+
+    public function getQueryBuilderForAllActive(): QueryBuilder
+    {
+        return $this->getRepository()->createQueryBuilder('c')
+            ->where('c.is_active = true');
+    }
 }

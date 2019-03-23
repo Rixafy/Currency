@@ -102,7 +102,7 @@ class CurrencyFacade
      * @return Currency
      * @throws Exception\CurrencyNotFoundException
      */
-    public function getDefaultCurrency(): Currency
+    public function getDefault(): Currency
     {
         return $this->currencyRepository->getDefault();
     }
@@ -110,8 +110,16 @@ class CurrencyFacade
     /**
      * @return Currency[]
      */
-    public function getAllCurrencies(): array
+    public function getAll(): array
     {
         return $this->currencyRepository->getQueryBuilderForAll()->getQuery()->getArrayResult();
+    }
+
+    /**
+     * @return Currency[]
+     */
+    public function getAllActive(): array
+    {
+        return $this->currencyRepository->getQueryBuilderForAllActive()->getQuery()->getArrayResult();
     }
 }
