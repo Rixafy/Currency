@@ -112,7 +112,7 @@ class CurrencyFacade
      */
     public function getAll(): array
     {
-        return $this->currencyRepository->getQueryBuilderForAll()->getQuery()->getArrayResult();
+        return $this->currencyRepository->getQueryBuilderForAll()->getQuery()->getResult();
     }
 
     /**
@@ -120,6 +120,6 @@ class CurrencyFacade
      */
     public function getAllActive(): array
     {
-        return $this->currencyRepository->getQueryBuilderForAllActive()->getQuery()->getArrayResult();
+        return $this->currencyRepository->getQueryBuilderForAllActive()->getQuery()->getResult();
     }
 }
