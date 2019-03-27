@@ -7,7 +7,6 @@ namespace Rixafy\Currency;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
-use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Rixafy\Currency\Exception\CurrencyNotFoundException;
 
