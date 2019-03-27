@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 use Rixafy\Currency\Exception\CurrencyNotFoundException;
 
 class CurrencyRepository
@@ -64,11 +65,11 @@ class CurrencyRepository
     }
 
     /**
-     * @param string $id
+     * @param UuidInterface $id
      * @return Currency
      * @throws CurrencyNotFoundException
      */
-    public function get(string $id): Currency
+    public function get(UuidInterface $id): Currency
     {
         /** @var Currency $currency */
         $currency = $this->getRepository()->findOneBy([
@@ -80,14 +81,6 @@ class CurrencyRepository
         }
 
         return $currency;
-    }
-
-    public function find(string $id): ?Currency
-    {
-        return $this->getQueryBuilderForAll()
-            ->andWhere('c.id = :id')->setParameter('id', Uuid::fromString($id))
-            ->getQuery()
-            ->getOneOrNullResult();
     }
 
     public function getQueryBuilderForAll(): QueryBuilder

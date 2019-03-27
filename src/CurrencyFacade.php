@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Rixafy\Currency;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Ramsey\Uuid\UuidInterface;
 
 class CurrencyFacade
 {
@@ -48,12 +49,12 @@ class CurrencyFacade
     }
 
     /**
-     * @param string $id
+     * @param UuidInterface $id
      * @param CurrencyData $currencyData
      * @return Currency
      * @throws Exception\CurrencyNotFoundException
      */
-    public function edit(string $id, CurrencyData $currencyData): Currency
+    public function edit(UuidInterface $id, CurrencyData $currencyData): Currency
     {
         $currency = $this->currencyRepository->get($id);
         $currency->edit($currencyData);
@@ -64,11 +65,11 @@ class CurrencyFacade
     }
 
     /**
-     * @param string $id
+     * @param UuidInterface $id
      * @return Currency
      * @throws Exception\CurrencyNotFoundException
      */
-    public function get(string $id): Currency
+    public function get(UuidInterface $id): Currency
     {
         return $this->currencyRepository->get($id);
     }
@@ -76,10 +77,10 @@ class CurrencyFacade
     /**
      * Permanent, removes currency from database and disk
      *
-     * @param string $id
+     * @param UuidInterface $id
      * @throws Exception\CurrencyNotFoundException
      */
-    public function remove(string $id): void
+    public function remove(UuidInterface $id): void
     {
         $entity = $this->get($id);
 
