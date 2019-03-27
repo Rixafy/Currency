@@ -30,7 +30,7 @@ class CurrencyProvider
     public function getCurrency(): Currency
     {
         if ($this->currency === null) {
-            throw new CurrencyNotProvidedException('Currency was not provided (use \Rixafy\Currency\CurrencyProvider::setCurrency method) and default currency is missing.');
+            throw new CurrencyNotProvidedException('Currency was not provided (use \Rixafy\Currency\CurrencyProvider::provide(string $currencyCode)) and default currency is missing.');
         }
         return $this->currency;
     }
@@ -42,5 +42,14 @@ class CurrencyProvider
     public function provide(string $currencyCode): void
     {
         $this->currency = $this->currencyFacade->getByCode($currencyCode);
+    }
+
+    /**
+     * @param string $currencyCode
+     * @throws Exception\CurrencyNotFoundException
+     */
+    public function change(string $currencyCode): void
+    {
+        $this->provide($currencyCode);
     }
 }
