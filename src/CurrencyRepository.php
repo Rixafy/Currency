@@ -35,7 +35,7 @@ class CurrencyRepository
 		]);
 
 		if ($currency === null) {
-			throw new CurrencyNotFoundException('Currency with id ' . $id . ' not found.');
+			throw CurrencyNotFoundException::byId($id);
 		}
 
 		return $currency;
@@ -52,7 +52,7 @@ class CurrencyRepository
         ]);
 
         if ($currency === null) {
-            throw new CurrencyNotFoundException('Currency with code ' . $code . ' not found.');
+            throw CurrencyNotFoundException::byCode($code);
         }
 
         return $currency;
@@ -69,7 +69,7 @@ class CurrencyRepository
         ]);
 
         if ($currency === null) {
-            throw new CurrencyNotFoundException('Currency with rate "1" not found (should be default currency).');
+            throw CurrencyNotFoundException::byRate(1);
         }
 
         return $currency;
