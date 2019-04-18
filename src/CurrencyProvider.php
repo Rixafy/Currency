@@ -24,7 +24,6 @@ class CurrencyProvider
     }
 
     /**
-     * @return Currency
      * @throws CurrencyNotProvidedException
      */
     public function getCurrency(): Currency
@@ -36,7 +35,6 @@ class CurrencyProvider
     }
 
     /**
-     * @param string $currencyCode
      * @throws Exception\CurrencyNotFoundException
      */
     public function provide(string $currencyCode): void
@@ -45,7 +43,6 @@ class CurrencyProvider
     }
 
     /**
-     * @param string $currencyCode
      * @throws Exception\CurrencyNotFoundException
      */
     public function change(string $currencyCode): void

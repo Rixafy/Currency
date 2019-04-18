@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Rixafy\Currency;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 use Rixafy\Currency\Exception\CurrencyNotFoundException;
@@ -20,21 +19,34 @@ class CurrencyRepository
         $this->entityManager = $entityManager;
     }
 
-    /**
-     * @return EntityRepository|\Doctrine\Common\Persistence\ObjectRepository
-     */
     protected function getRepository()
     {
         return $this->entityManager->getRepository(Currency::class);
     }
 
+	/**
+	 * @throws CurrencyNotFoundException
+	 */
+	public function get(UuidInterface $id): Currency
+	{
+		/** @var Currency $currency */
+		$currency = $this->getRepository()->findOneBy([
+			'id' => $id
+		]);
+
+		if ($currency === null) {
+			throw new CurrencyNotFoundException('Currency with id ' . $id . ' not found.');
+		}
+
+		return $currency;
+	}
+
     /**
-     * @param string $code
-     * @return Currency|object
      * @throws CurrencyNotFoundException
      */
     public function getByCode(string $code): Currency
     {
+    	/** @var Currency $currency */
         $currency = $this->getRepository()->findOneBy([
             'code' => $code
         ]);
@@ -47,36 +59,17 @@ class CurrencyRepository
     }
 
     /**
-     * @return Currency|object
      * @throws CurrencyNotFoundException
      */
     public function getDefault(): Currency
     {
+    	/** @var Currency $currency */
         $currency = $this->getRepository()->findOneBy([
             'rate' => 1
         ]);
 
         if ($currency === null) {
             throw new CurrencyNotFoundException('Currency with rate "1" not found (should be default currency).');
-        }
-
-        return $currency;
-    }
-
-    /**
-     * @param UuidInterface $id
-     * @return Currency
-     * @throws CurrencyNotFoundException
-     */
-    public function get(UuidInterface $id): Currency
-    {
-        /** @var Currency $currency */
-        $currency = $this->getRepository()->findOneBy([
-            'id' => $id
-        ]);
-
-        if ($currency === null) {
-            throw new CurrencyNotFoundException('Currency with id ' . $id . ' not found.');
         }
 
         return $currency;

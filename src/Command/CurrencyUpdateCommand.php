@@ -30,13 +30,6 @@ final class CurrencyUpdateCommand extends Command
     /** @var EntityManagerInterface */
     private $entityManager;
 
-    /**
-     * CurrencyUpdateCommand constructor.
-     * @param CurrencyConfig $currencyConfig
-     * @param CurrencyFacade $currencyFacade
-     * @param CurrencyFactory $currencyFactory
-     * @param EntityManagerInterface $entityManager
-     */
     public function __construct(CurrencyConfig $currencyConfig, CurrencyFacade $currencyFacade, CurrencyFactory $currencyFactory, EntityManagerInterface $entityManager)
     {
         $this->currencyConfig = $currencyConfig;

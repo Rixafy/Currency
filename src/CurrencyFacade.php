@@ -18,12 +18,6 @@ class CurrencyFacade
     /** @var CurrencyFactory */
     private $currencyFactory;
 
-    /**
-     * CurrencyFacade constructor.
-     * @param EntityManagerInterface $entityManager
-     * @param CurrencyRepository $currencyRepository
-     * @param CurrencyFactory $currencyFactory
-     */
     public function __construct(
         EntityManagerInterface $entityManager,
         CurrencyRepository $currencyRepository,
@@ -34,10 +28,6 @@ class CurrencyFacade
         $this->currencyFactory = $currencyFactory;
     }
 
-    /**
-     * @param CurrencyData $currencyData
-     * @return Currency
-     */
     public function create(CurrencyData $currencyData): Currency
     {
         $currency = $this->currencyFactory->create($currencyData);
@@ -49,9 +39,6 @@ class CurrencyFacade
     }
 
     /**
-     * @param UuidInterface $id
-     * @param CurrencyData $currencyData
-     * @return Currency
      * @throws Exception\CurrencyNotFoundException
      */
     public function edit(UuidInterface $id, CurrencyData $currencyData): Currency
@@ -65,8 +52,6 @@ class CurrencyFacade
     }
 
     /**
-     * @param UuidInterface $id
-     * @return Currency
      * @throws Exception\CurrencyNotFoundException
      */
     public function get(UuidInterface $id): Currency
@@ -77,7 +62,6 @@ class CurrencyFacade
     /**
      * Permanent, removes currency from database and disk
      *
-     * @param UuidInterface $id
      * @throws Exception\CurrencyNotFoundException
      */
     public function remove(UuidInterface $id): void
@@ -90,8 +74,6 @@ class CurrencyFacade
     }
 
     /**
-     * @param string $code
-     * @return Currency
      * @throws Exception\CurrencyNotFoundException
      */
     public function getByCode(string $code): Currency
@@ -100,7 +82,6 @@ class CurrencyFacade
     }
 
     /**
-     * @return Currency
      * @throws Exception\CurrencyNotFoundException
      */
     public function getDefault(): Currency
