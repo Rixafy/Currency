@@ -87,8 +87,8 @@ final class CurrencyUpdateCommand extends Command
                     $this->entityManager->flush();
 
                     $output->writeln('<fg=green;options=bold></>');
-                    $output->writeln('<fg=green;options=bold>Currencies updated: ' . $updated . ')</>');
-                    $output->writeln('<fg=green;options=bold>Currencies created: ' . $created . ')</>');
+                    $output->writeln('<fg=green;options=bold>Currencies updated: ' . $updated . '</>');
+                    $output->writeln('<fg=green;options=bold>Currencies created: ' . $created . '</>');
                     $output->writeln('<fg=green;options=bold></>');
 
                 } else {
