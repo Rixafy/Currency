@@ -61,26 +61,15 @@ final class CurrencyUpdateCommand extends Command
             try {
                 $json = Json::decode($content);
 
-                if ($json['success']) {
-                    try {
-                        $baseCurrency = $this->currencyFacade->getByCode($json['base']);
-                        $baseCurrency->updateRate(1);
+                if ($json->success) {
+                	$updated = 0;
+                	$created = 0;
 
-                    } catch (CurrencyNotFoundException $e) {
-                        $data = new CurrencyData();
-
-                        $data->rate = 1;
-                        $data->code = $json['base'];
-
-                        $baseCurrency = $this->currencyFactory->create($data);
-
-                        $this->entityManager->persist($baseCurrency);
-                    }
-
-                    foreach ($json['rates'] as $code => $rate) {
+                    foreach ($json->rates as $code => $rate) {
                         try {
                             $currency = $this->currencyFacade->getByCode($code);
                             $currency->updateRate($rate);
+                            $updated++;
 
                         } catch (CurrencyNotFoundException $e) {
                             $data = new CurrencyData();
@@ -89,6 +78,7 @@ final class CurrencyUpdateCommand extends Command
                             $data->rate = $rate;
 
                             $currency = $this->currencyFactory->create($data);
+                            $created++;
                         }
 
                         $this->entityManager->persist($currency);
@@ -97,15 +87,16 @@ final class CurrencyUpdateCommand extends Command
                     $this->entityManager->flush();
 
                     $output->writeln('<fg=green;options=bold></>');
-                    $output->writeln('<fg=green;options=bold>Currencies successfully updated! ('.count($json['rates']).')</>');
+                    $output->writeln('<fg=green;options=bold>Currencies updated: ' . $updated . ')</>');
+                    $output->writeln('<fg=green;options=bold>Currencies created: ' . $created . ')</>');
                     $output->writeln('<fg=green;options=bold></>');
 
                 } else {
-                    $output->writeln('<fg=red;options=bold>Read from fixer.io failed (json field success is negative), check your api key!</>');
+                    $output->writeln('<fg=red;options=bold>Read from ' . $this->currencyConfig->getApiService() . ' failed (json field success is negative), check your api key!</>');
                 }
 
             } catch (JsonException $e) {
-                $output->writeln('<fg=red;options=bold>Read from fixer.io failed (JsonException "' . $e->getMessage() . '"), check your api key!</>');
+                $output->writeln('<fg=red;options=bold>Read from ' . $this->currencyConfig->getApiService() . ' failed (JsonException "' . $e->getMessage() . '"), check your api key!</>');
             }
         }
     }
