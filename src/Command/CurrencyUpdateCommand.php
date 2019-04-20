@@ -30,6 +30,9 @@ final class CurrencyUpdateCommand extends Command
     /** @var EntityManagerInterface */
     private $entityManager;
 
+    /** @var string */
+    public static $defaultName = 'rixafy:currency:update';
+
     public function __construct(CurrencyConfig $currencyConfig, CurrencyFacade $currencyFacade, CurrencyFactory $currencyFactory, EntityManagerInterface $entityManager)
     {
         $this->currencyConfig = $currencyConfig;
@@ -38,11 +41,6 @@ final class CurrencyUpdateCommand extends Command
         $this->entityManager = $entityManager;
 
         parent::__construct();
-    }
-
-    public function configure(): void
-    {
-        $this->setName('rixafy:currency:update');
     }
 
     public function execute(InputInterface $input, OutputInterface $output): void
