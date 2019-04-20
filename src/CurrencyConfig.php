@@ -27,14 +27,14 @@ class CurrencyConfig
      */
     private $baseCurrency;
 
-    public function __construct($apiKey = 'undefined', $apiService = 'fixer', $baseCurrency = 'USD')
+    public function __construct(string $baseCurrency, ?string $apiService, ?string $apiKey)
     {
         $this->apiKey = $apiKey;
         $this->apiService = $apiService;
         $this->baseCurrency = $baseCurrency;
     }
 
-    public function getApiKey(): string
+    public function getApiKey(): ?string
     {
         return $this->apiKey;
     }
@@ -44,7 +44,7 @@ class CurrencyConfig
         return $this->baseCurrency;
     }
 
-    public function getApiService(): string
+    public function getApiService(): ?string
     {
         return $this->apiService;
     }

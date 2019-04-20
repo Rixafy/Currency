@@ -30,9 +30,6 @@ final class CurrencyUpdateCommand extends Command
     /** @var EntityManagerInterface */
     private $entityManager;
 
-    /** @var string */
-    public static $defaultName = 'rixafy:currency:update';
-
     public function __construct(CurrencyConfig $currencyConfig, CurrencyFacade $currencyFacade, CurrencyFactory $currencyFactory, EntityManagerInterface $entityManager)
     {
         $this->currencyConfig = $currencyConfig;
@@ -43,8 +40,22 @@ final class CurrencyUpdateCommand extends Command
         parent::__construct();
     }
 
-    public function execute(InputInterface $input, OutputInterface $output): void
+    public function configure()
+	{
+		$this->setName('rixafy:currency:update');
+		$this->setDescription('Updates currency rates from third-party service.');
+	}
+
+	public function execute(InputInterface $input, OutputInterface $output): void
     {
+		if ($this->currencyConfig->getApiService() === null) {
+			$output->writeln('<error>Api service is not specified!</error>');
+			return;
+		} elseif ($this->currencyConfig->getApiKey() === null) {
+    		$output->writeln('<error>Api key is not specified!</error>');
+    		return;
+		}
+
         $content = @file_get_contents('http://data.fixer.io/api/latest?access_key=' . $this->currencyConfig->getApiKey() . '&base=' . $this->currencyConfig->getBaseCurrency());
         if ($content !== false) {
             try {
