@@ -82,12 +82,12 @@ class CurrencyRepository
 
     public function getQueryBuilderForAll(): QueryBuilder
     {
-        return $this->getRepository()->createQueryBuilder('c');
+        return $this->getRepository()->createQueryBuilder('e');
     }
 
     public function getQueryBuilderForAllActive(): QueryBuilder
     {
-        return $this->getRepository()->createQueryBuilder('c')
-            ->where('c.is_active = true');
+        return $this->getQueryBuilderForAll()
+            ->where('e.is_active = true');
     }
 }
