@@ -40,37 +40,37 @@ class Currency
      * @ORM\Column(type="string", length=3)
      * @var string
      */
-    private $symbol_before;
+    private $symbolBefore;
 
     /**
      * @ORM\Column(type="string", length=3)
      * @var string
      */
-    private $symbol_after;
+    private $symbolAfter;
 
     /**
      * @ORM\Column(type="smallint")
      * @var int
      */
-    private $decimal_places;
+    private $decimalPlaces;
 
     /**
      * @ORM\Column(type="string", length=1)
      * @var string
      */
-    private $decimal_separator;
+    private $decimalSeparator;
 
     /**
      * @ORM\Column(type="string", length=1)
      * @var string
      */
-    private $thousands_separator;
+    private $thousandsSeparator;
 
     /**
      * @ORM\Column(type="boolean")
      * @var bool
      */
-    private $round_down = false;
+    private $roundDown = false;
 
     public function __construct(CurrencyData $currencyData)
     {
@@ -82,26 +82,25 @@ class Currency
     {
         $this->code = $currencyData->code;
         $this->rate = $currencyData->rate;
-        $this->symbol_before = $currencyData->symbolBefore;
-        $this->symbol_after = $currencyData->symbolAfter;
-        $this->decimal_places = $currencyData->decimalPlaces;
-        $this->decimal_separator = $currencyData->decimalSeparator;
-        $this->thousands_separator = $currencyData->thousandsSeparator;
-        $this->round_down = $currencyData->roundDown;
+        $this->symbolBefore = $currencyData->symbolBefore;
+        $this->symbolAfter = $currencyData->symbolAfter;
+        $this->decimalPlaces = $currencyData->decimalPlaces;
+        $this->decimalSeparator = $currencyData->decimalSeparator;
+        $this->thousandsSeparator = $currencyData->thousandsSeparator;
+        $this->roundDown = $currencyData->roundDown;
     }
 
     public function getData(): CurrencyData
     {
         $data = new CurrencyData();
-
         $data->code = $this->code;
         $data->rate = $this->rate;
-        $data->symbolBefore = $this->symbol_before;
-        $data->symbolAfter = $this->symbol_after;
-        $data->decimalPlaces = $this->decimal_places;
-        $data->decimalSeparator = $this->decimal_separator;
-        $data->thousandsSeparator = $this->thousands_separator;
-        $data->roundDown = $this->round_down;
+        $data->symbolBefore = $this->symbolBefore;
+        $data->symbolAfter = $this->symbolAfter;
+        $data->decimalPlaces = $this->decimalPlaces;
+        $data->decimalSeparator = $this->decimalSeparator;
+        $data->thousandsSeparator = $this->thousandsSeparator;
+        $data->roundDown = $this->roundDown;
 
         return $data;
     }
@@ -118,42 +117,42 @@ class Currency
 
     public function getSymbolBefore(): string
     {
-        return $this->symbol_before;
+        return $this->symbolBefore;
     }
 
     public function getSymbolAfter(): string
     {
-        return $this->symbol_after;
+        return $this->symbolAfter;
     }
 
     public function getDecimalPlaces(): int
     {
-        return $this->decimal_places;
+        return $this->decimalPlaces;
     }
 
     public function isRoundDown(): bool
     {
-        return $this->round_down;
+        return $this->roundDown;
     }
 
     public function getDecimalSeparator(): string
     {
-        return $this->decimal_separator;
+        return $this->decimalSeparator;
     }
 
     public function formatToString(float $amount): string
     {
-        return $this->symbol_before . $this->formatToNumber($amount) . $this->symbol_after;
+        return $this->symbolBefore . $this->formatToNumber($amount) . $this->symbolAfter;
     }
 
     public function formatToNumber(float $amount): string
     {
-        return number_format((float) $amount, $this->decimal_places, $this->decimal_separator, $this->thousands_separator);
+        return number_format((float) $amount, $this->decimalPlaces, $this->decimalSeparator, $this->thousandsSeparator);
     }
 
     public function convertFrom(Currency $fromCurrency, float $amount): float
     {
-        return round($amount * ($this->getRate() / $fromCurrency->getRate()), $this->decimal_places, $this->round_down ? PHP_ROUND_HALF_DOWN : PHP_ROUND_HALF_UP);
+        return round($amount * ($this->getRate() / $fromCurrency->getRate()), $this->decimalPlaces, $this->roundDown ? PHP_ROUND_HALF_DOWN : PHP_ROUND_HALF_UP);
     }
 
     public function convertTo(Currency $toCurrency, float $amount): float
