@@ -88,6 +88,6 @@ class CurrencyRepository
     public function getQueryBuilderForAllActive(): QueryBuilder
     {
         return $this->getQueryBuilderForAll()
-            ->where('e.is_active = true');
+            ->where('e.isActive = :active')->setParameter('active', true);
     }
 }
