@@ -11,7 +11,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "doctrine/orm": "2.6 - 2.7.x-dev",
+        "doctrine/orm": "2.6 - 3.0",
         "ramsey/uuid-doctrine": "dev-master",
         "rixafy/doctrine-traits": "dev-master",
         "nette/utils": "^3.0"
