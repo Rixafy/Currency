@@ -16,6 +16,9 @@ class CurrencyRepository
     /** @var EntityManagerInterface */
     private $entityManager;
 
+	/** @var array */
+	private $currencyCache = [];
+
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
@@ -51,6 +54,10 @@ class CurrencyRepository
      */
     public function getByCode(string $code): Currency
     {
+    	if (isset($this->currencyCache[$code])) {
+    		return $this->currencyCache[$code];
+		}
+    	
     	/** @var Currency $currency */
         $currency = $this->getRepository()->findOneBy([
             'code' => $code
@@ -60,7 +67,7 @@ class CurrencyRepository
             throw CurrencyNotFoundException::byCode($code);
         }
 
-        return $currency;
+        return $this->currencyCache[$code] = $currency;
     }
 
     /**
