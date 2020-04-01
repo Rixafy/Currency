@@ -23,10 +23,23 @@ class CurrencyProvider
         }
     }
 
+	/**
+	 * @throws Exception\CurrencyNotFoundException
+	 */
+	public function setup(string $currencyCode): void
+	{
+		$this->currency = $this->currencyFacade->getByCode($currencyCode);
+	}
+
+	public function setupFromEntity(Currency $currency): void
+	{
+		$this->currency = $currency;
+	}
+    
     /**
      * @throws CurrencyNotProvidedException
      */
-    public function getCurrency(): Currency
+    public function provide(): Currency
     {
         if ($this->currency === null) {
             throw new CurrencyNotProvidedException('Currency was not provided (use \Rixafy\Currency\CurrencyProvider::provide(string $currencyCode)) and default currency is missing.');
@@ -37,16 +50,8 @@ class CurrencyProvider
     /**
      * @throws Exception\CurrencyNotFoundException
      */
-    public function provide(string $currencyCode): void
-    {
-        $this->currency = $this->currencyFacade->getByCode($currencyCode);
-    }
-
-    /**
-     * @throws Exception\CurrencyNotFoundException
-     */
     public function change(string $currencyCode): void
     {
-        $this->provide($currencyCode);
+        $this->setup($currencyCode);
     }
 }
