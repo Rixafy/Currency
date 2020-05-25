@@ -139,6 +139,11 @@ class Currency
     {
         return $this->decimalSeparator;
     }
+    
+    public function getThousandsSeparator(): string
+    {
+        return $this->thousandsSeparator;
+    }
 
     public function formatToString(float $amount): string
     {
