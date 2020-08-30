@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Rixafy\Currency;
 
+use Doctrine\DBAL\Exception\TableNotFoundException;
+use Rixafy\Currency\Exception\CurrencyNotFoundException;
 use Rixafy\Currency\Exception\CurrencyNotProvidedException;
 
 class CurrencyProvider
@@ -19,7 +21,7 @@ class CurrencyProvider
         $this->currencyFacade = $currencyFacade;
         try {
             $this->currency = $currencyFacade->getDefault();
-        } catch (Exception\CurrencyNotFoundException $e) {
+        } catch (CurrencyNotFoundException | TableNotFoundException $e) {
         }
     }
 
