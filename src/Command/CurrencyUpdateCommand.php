@@ -46,14 +46,14 @@ final class CurrencyUpdateCommand extends Command
 		$this->setDescription('Updates currency rates from third-party service.');
 	}
 
-	public function execute(InputInterface $input, OutputInterface $output): void
+	public function execute(InputInterface $input, OutputInterface $output): int
     {
 		if ($this->currencyConfig->getApiService() === null) {
 			$output->writeln('<error>Api service is not specified!</error>');
-			return;
+			return 1;
 		} elseif ($this->currencyConfig->getApiKey() === null) {
     		$output->writeln('<error>Api key is not specified!</error>');
-    		return;
+    		return 1;
 		}
 
         $content = @file_get_contents('http://data.fixer.io/api/latest?access_key=' . $this->currencyConfig->getApiKey() . '&base=' . $this->currencyConfig->getBaseCurrency());
@@ -99,5 +99,7 @@ final class CurrencyUpdateCommand extends Command
                 $output->writeln('<fg=red;options=bold>Read from ' . $this->currencyConfig->getApiService() . ' failed (JsonException "' . $e->getMessage() . '"), check your api key!</>');
             }
         }
+        
+        return 0;
     }
 }
