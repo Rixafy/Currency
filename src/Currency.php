@@ -9,68 +9,39 @@ use Rixafy\DoctrineTraits\ActiveTrait;
 use Rixafy\DoctrineTraits\DateTimeTrait;
 use Rixafy\DoctrineTraits\UniqueTrait;
 
-/**
- * @ORM\Entity
- * @ORM\HasLifecycleCallbacks
- * @ORM\Table(name="currency", indexes={
- *     @ORM\Index(name="search_default", columns={"rate"})
- * })
- */
+#[ORM\Entity]
+#[ORM\HasLifecycleCallbacks]
+#[ORM\Table(name: 'currency')]
+#[ORM\Index(columns: ['rate'], name: 'search_default')]
 class Currency
 {
     use UniqueTrait;
     use ActiveTrait;
     use DateTimeTrait;
 
-    /**
-     * @ORM\Column(type="string", unique=true, length=3)
-     * @var string
-     */
-    private $code;
+	#[ORM\Column(length: 3, unique: true)]
+    private string $code;
 
-    /**
-     * If you want to set your default currency, set rate to 1
-     *
-     * @ORM\Column(type="float")
-     * @var float
-     */
-    private $rate;
+	#[ORM\Column]
+    private float $rate;
 
-    /**
-     * @ORM\Column(type="string", length=3)
-     * @var string
-     */
-    private $symbolBefore;
+	#[ORM\Column(length: 3)]
+    private string $symbolBefore;
 
-    /**
-     * @ORM\Column(type="string", length=3)
-     * @var string
-     */
-    private $symbolAfter;
+	#[ORM\Column(length: 3)]
+    private string $symbolAfter;
 
-    /**
-     * @ORM\Column(type="smallint")
-     * @var int
-     */
-    private $decimalPlaces;
+	#[ORM\Column(type: 'smallint')]
+    private int $decimalPlaces;
 
-    /**
-     * @ORM\Column(type="string", length=1)
-     * @var string
-     */
-    private $decimalSeparator;
+	#[ORM\Column(length: 1)]
+    private string $decimalSeparator;
 
-    /**
-     * @ORM\Column(type="string", length=1)
-     * @var string
-     */
-    private $thousandsSeparator;
+	#[ORM\Column(length: 1)]
+    private string $thousandsSeparator;
 
-    /**
-     * @ORM\Column(type="boolean")
-     * @var bool
-     */
-    private $roundDown = false;
+	#[ORM\Column]
+    private bool $roundDown = false;
 
     public function __construct(CurrencyData $currencyData)
     {
