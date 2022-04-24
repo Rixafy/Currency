@@ -7,7 +7,7 @@ namespace Rixafy\Currency;
 use Doctrine\ORM\Mapping as ORM;
 use Rixafy\DoctrineTraits\ActiveTrait;
 use Rixafy\DoctrineTraits\DateTimeTrait;
-use Rixafy\DoctrineTraits\UniqueTrait;
+use Rixafy\DoctrineTraits\UniqueUlidTrait;
 
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
@@ -15,7 +15,7 @@ use Rixafy\DoctrineTraits\UniqueTrait;
 #[ORM\Index(columns: ['rate'], name: 'search_default')]
 class Currency
 {
-    use UniqueTrait;
+	use UniqueUlidTrait;
     use ActiveTrait;
     use DateTimeTrait;
 
